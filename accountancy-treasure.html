@@ -1,0 +1,274 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Treasure Island · Accountancy</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--s1:#0a4d68;--s2:#06283d;--sand:#f6e3b4;--ink:#3a2a14;--gold:#ffc83d;--c0:#ff7a59;--c1:#2bb3ff;--c2:#ff5fa2;--c3:#38d39f;--c4:#9b6bff;--c5:#ff9f1c;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font-family:'Baloo 2',system-ui,sans-serif;color:var(--ink);min-height:100vh;overflow-x:hidden;background:linear-gradient(180deg,var(--s1),var(--s2))}
+#waves{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.18;background:repeating-radial-gradient(circle at 50% 120%,transparent 0 22px,#fff 23px 24px)}
+.app{position:relative;z-index:1;max-width:820px;margin:0 auto;padding:16px 14px 40px}
+.top{display:flex;justify-content:space-between;gap:8px;margin-bottom:10px}
+.pill{background:rgba(255,255,255,.16);padding:6px 14px;border-radius:99px;font:700 18px inherit;font-family:inherit;color:#fff;border:0;cursor:pointer}
+h1{color:#fff;text-align:center;font-size:clamp(30px,6vw,44px);margin:6px 0 0;line-height:1.1;text-shadow:0 4px 0 rgba(0,0,0,.3)}
+.sub{color:#bfe6f5;text-align:center;font-size:19px;margin:4px 0 16px}
+.screen{display:none}.screen.on{display:block;animation:pop .35s}
+@keyframes pop{from{transform:scale(.96);opacity:0}to{transform:none;opacity:1}}
+.card{background:var(--sand);border-radius:28px;padding:20px;box-shadow:0 10px 0 rgba(0,0,0,.28);border:4px solid #d9b877}
+.btn{border:0;border-radius:18px;padding:12px 22px;font-family:inherit;font-weight:800;font-size:20px;cursor:pointer;background:#fff;color:var(--ink);box-shadow:0 5px 0 rgba(0,0,0,.25)}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.25)}
+.btn.big{font-size:24px;padding:14px 30px}.btn.gold{background:var(--gold)}
+.row{display:flex;gap:10px;justify-content:center;margin-top:16px;flex-wrap:wrap}
+.mega{width:100%;display:flex;align-items:center;gap:14px;text-align:left;border:0;border-radius:26px;padding:16px 20px;color:#3a2200;background:linear-gradient(135deg,#ffe27a,#ffb627);box-shadow:0 8px 0 rgba(0,0,0,.28);font-family:inherit;cursor:pointer;margin-bottom:16px}
+.mega:active{transform:translateY(4px);box-shadow:0 3px 0 rgba(0,0,0,.28)}
+.mega .e{font-size:50px}.mega b{font-size:25px;display:block;line-height:1.1}.mega span{font-size:16px}
+.isl{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.i{border:0;border-radius:24px;padding:14px 10px;color:#fff;cursor:pointer;font-family:inherit;box-shadow:0 7px 0 rgba(0,0,0,.28);text-align:center;transition:transform .12s}
+.i:hover{transform:translateY(-3px)}.i:active{transform:translateY(4px);box-shadow:0 3px 0 rgba(0,0,0,.28)}
+.i .e{font-size:40px;line-height:1}.i .n{font-size:17px;font-weight:800;line-height:1.15;margin-top:4px;min-height:40px}.i .st{font-size:17px;margin-top:2px;letter-spacing:2px}
+.track{position:relative;height:56px;background:rgba(255,255,255,.14);border-radius:99px;margin:6px 0 16px;overflow:hidden}
+.ship{position:absolute;top:50%;left:6px;transform:translateY(-50%);font-size:34px;transition:left .6s cubic-bezier(.3,1.5,.5,1)}
+.chest{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:34px}
+.dots{position:absolute;inset:0;display:flex;justify-content:space-around;align-items:center;padding:0 60px 0 50px}
+.dots i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3)}.dots i.d{background:var(--gold)}
+.ch{font-size:15px;font-weight:700;text-align:center;color:#8a6a2e;letter-spacing:.06em;text-transform:uppercase}
+.q{font-size:clamp(22px,5vw,30px);font-weight:800;line-height:1.25;text-align:center;margin:8px 0 14px}
+.opts{display:grid;gap:10px}
+.o{border:0;border-radius:20px;font-family:inherit;font-weight:700;font-size:clamp(17px,4vw,20px);line-height:1.2;padding:14px 16px;cursor:pointer;color:#fff;text-align:left;box-shadow:0 6px 0 rgba(0,0,0,.25)}
+.o:active{transform:translateY(4px);box-shadow:0 2px 0 rgba(0,0,0,.25)}
+.o.w{background:#cdbf9f !important;color:#8d7c5a;animation:sh .4s}
+.o.r{background:#2ecc71 !important;animation:bn .5s}
+.o:disabled{cursor:default}
+@keyframes sh{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+@keyframes bn{40%{transform:scale(1.05)}}
+.fb{text-align:center;font-size:25px;font-weight:800;min-height:36px;margin-top:10px}.fb.g{color:#1e9c55}.fb.t{color:#d9730d}
+.help{text-align:center;margin-top:10px}
+.hint{background:#fff6dc;border:2px dashed #c9a24f;border-radius:16px;padding:8px 18px;font-family:inherit;font-weight:700;font-size:18px;cursor:pointer;color:var(--ink)}
+.map{display:none;margin-top:12px;background:#fff6dc;border:3px dashed #c9a24f;border-radius:20px;padding:14px;font-size:19px;text-align:center;line-height:1.4}
+.map.on{display:block;animation:pop .3s}.map b{color:#b5651d}
+.next{display:none;margin:14px auto 0}
+.big{font-size:84px;text-align:center;line-height:1}.stars{text-align:center;font-size:42px;margin:8px 0;letter-spacing:4px}
+.c{text-align:center}.howto{font-size:20px;text-align:center}
+input{font-family:inherit;font-size:26px;padding:10px 16px;border-radius:16px;border:3px solid #d9b877;text-align:center;width:100%;max-width:340px;font-weight:700;color:var(--ink);background:#fffaf0}
+.tg{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:10px}
+.t{background:#fff6dc;border-radius:18px;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:42px}
+.t.l{filter:grayscale(1);opacity:.35}.t small{font-size:12px;font-weight:700;color:#8a6a2e}
+.cf{position:fixed;top:-20px;font-size:26px;pointer-events:none;z-index:50;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+.fly{position:fixed;font-size:38px;z-index:60;pointer-events:none;animation:fl .9s ease-in forwards}
+@keyframes fl{0%{transform:scale(.4)}30%{transform:scale(1.4)}100%{transform:translate(var(--dx),var(--dy)) scale(.5);opacity:.6}}
+@media(prefers-color-scheme:light){body{color-scheme:light}}
+</style></head><body><div id="waves"></div>
+<div class="app">
+<div class="top"><button class="pill" id="hm">🏠</button><button class="pill" id="cn">🪙 <span id="cnum">0</span></button><button class="pill" id="sd">🔊</button></div>
+
+<section class="screen" id="s-name"><h1>🏴‍☠️ Treasure Island</h1><p class="sub">Sail through 14 chapters and win the Accountancy treasure!</p>
+<div class="card c"><div class="big">🦜</div><p class="howto">Ahoy, matey!<br>What’s your pirate name?</p><input id="ni" maxlength="16" placeholder="Type your name">
+<div class="row"><button class="btn big gold" id="ng">Set sail! ⚓</button></div></div></section>
+
+<section class="screen" id="s-home"><h1 id="hi"></h1><p class="sub" id="rank"></p>
+<button class="mega" id="mg"><span class="e">🗺️</span><span><b>Mega Treasure Hunt</b><span>20 mixed questions · exam practice</span></span></button>
+<div class="isl" id="isl"></div>
+<div class="row"><button class="btn" id="tb">🧰 Treasure Chest</button></div></section>
+
+<section class="screen" id="s-game"><div class="track"><div class="dots" id="dots"></div><div class="ship" id="ship">⛵</div><div class="chest">💰</div></div>
+<div class="card"><div class="ch" id="cht"></div><div class="q" id="qt"></div><div class="opts" id="ops"></div><div class="fb" id="fb"></div>
+<div class="help"><button class="hint" id="hb">🗺️ Show me a hint</button></div><div class="map" id="mp"></div>
+<div class="c"><button class="btn big gold next" id="nx">Next ➜</button></div></div></section>
+
+<section class="screen" id="s-res"><div class="card c"><div class="big" id="re">🏆</div><h2 id="rt" style="font-size:32px;margin:6px 0"></h2><div class="stars" id="rs"></div><p class="howto" id="rx"></p>
+<div class="row"><button class="btn big gold" id="ag">Sail again 🔁</button><button class="btn big" id="rh">Map 🗺️</button></div></div></section>
+
+<section class="screen" id="s-tre"><h1>🧰 Treasure Chest</h1><p class="sub" id="ts"></p><div class="card"><div class="tg" id="tg"></div></div></section>
+</div>
+<script>
+const CH=[
+["Meaning & Scope of Accounting",[
+["Accounting is the process of identifying, measuring, recording and ___ financial information.",["Destroying","Communicating","Hiding","Estimating"],1,"Communicating the information to users is the final step."],
+["Which is NOT an objective of accounting?",["Maintaining records","Ascertaining profit or loss","Providing information to users","Increasing sales"],3,"Accounting reports performance; it doesn’t directly increase sales."],
+["Which of these is an INTERNAL user of accounting information?",["Banks","Investors","Management","Tax authorities"],2,"Management works inside the business; others are external."],
+["Book-keeping is mainly concerned with…",["Analysing results","Recording transactions","Taking decisions","Auditing"],1,"Book-keeping = recording; accounting goes further (summarising, analysing)."]]],
+["Basic Accounting Terms",[
+["Amount withdrawn by the owner for personal use is called…",["Capital","Drawings","Expense","Revenue"],1,"Drawings reduce the owner’s capital."],
+["Capital is a ___ of the business towards the owner.",["Asset","Expense","Liability","Income"],2,"The business owes the capital back to the owner."],
+["Goodwill is a…",["Tangible fixed asset","Current asset","Intangible asset","Liability"],2,"It can’t be seen or touched, so it is intangible."],
+["A debtor is a person who…",["Owes money to the business","Is owed money by the business","Supplies goods","Owns the business"],0,"Debtor = receivable (asset). Creditor = payable (liability)."]]],
+["Accounting Principles",[
+["‘Business is assumed to continue for a long time’ is the ___ concept.",["Going concern","Matching","Conservatism","Cost"],0,"Going concern assumes no intention to close down."],
+["Matching concept means matching…",["Assets with liabilities","Revenues with expenses of the same period","Cash with bank","Debtors with creditors"],1,"Expenses of a period are set against that period’s revenue."],
+["Conservatism says: provide for all possible ___ but ignore anticipated ___.",["profits, losses","losses, profits","assets, debts","sales, costs"],1,"Be cautious – anticipate losses, never unearned profits."],
+["Business Entity concept treats the business as…",["Same as the owner","Separate from the owner","A government body","A partnership only"],1,"Owner and business are separate for accounting."]]],
+["Process & Bases of Accounting",[
+["Under the cash basis, a transaction is recorded when…",["It is agreed","Cash is received or paid","The goods are ordered","The year ends"],1,"Cash basis ignores credit and outstanding items."],
+["Under the accrual basis, revenue is recognised when it is…",["Earned","Received in cash","Banked","Audited"],0,"Accrual records when earned/incurred, not when cash moves."],
+["After recording in the journal, the next step is…",["Trial balance","Posting to ledger","Final accounts","Balance sheet"],1,"Journal → Ledger → Trial Balance → Final accounts."],
+["Which is a qualitative characteristic of accounting information?",["Comparability","Profit","Cash","Stock"],0,"Others are Reliability, Relevance and Understandability."]]],
+["Accounting Standards",[
+["Accounting Standards in India are issued by…",["RBI","ICAI","SEBI only","Parliament"],1,"ICAI’s Accounting Standards Board formulates them."],
+["IFRS stands for…",["Indian Financial Reporting System","International Financial Reporting Standards","Internal Fiscal Report Statement","Integrated Fund Rules"],1,"International Financial Reporting Standards."],
+["AS-2 deals with…",["Depreciation","Valuation of inventories","Cash flow","Revenue"],1,"AS-2 = Valuation of Inventories."],
+["A key purpose of accounting standards is…",["Reduce taxes","Bring uniformity in accounting","Increase profit","Avoid audits"],1,"They cut out varied practices so statements are comparable."]]],
+["Accounting Equations",[
+["The accounting equation is…",["A = L + C","A + L = C","C = A + L","L = A + C"],0,"Assets = Liabilities + Capital."],
+["Assets ₹80,000 and liabilities ₹30,000. Capital is…",["₹1,10,000","₹50,000","₹30,000","₹80,000"],1,"C = A − L = 80,000 − 30,000."],
+["Goods bought on credit for ₹10,000 will…",["Raise assets and liabilities","Raise assets, lower capital","Lower assets","Raise capital"],0,"Stock (asset) ↑ and creditors (liability) ↑."],
+["Rent paid in cash will…",["Increase capital","Decrease assets and capital","Increase liabilities","Not change anything"],1,"Cash falls and the expense reduces capital."]]],
+["Double Entry System",[
+["Double entry means every transaction has…",["One aspect","Two equal aspects: debit and credit","Only a credit","Only cash"],1,"Total debits always equal total credits."],
+["Rule for Real accounts:",["Debit receiver, credit giver","Debit what comes in, credit what goes out","Debit expenses, credit income","Debit all losses"],1,"Cash, goods, furniture are Real accounts."],
+["Rule for Personal accounts:",["Debit what comes in","Debit the receiver, credit the giver","Credit all gains","Debit the giver"],1,"The person who receives benefit is debited."],
+["Rent paid is a ___ account and is ___.",["Nominal, debited","Nominal, credited","Real, debited","Personal, credited"],0,"Debit all expenses and losses; credit all incomes and gains."]]],
+["Source Documents",[
+["A cash memo is issued on…",["Credit sale","Cash sale","Return of goods","Payment of salary"],1,"Cash memo = cash sale/purchase."],
+["Goods returned to the supplier are recorded with a…",["Credit note","Debit note","Cash memo","Invoice"],1,"Buyer issues a debit note; seller issues a credit note."],
+["An invoice is prepared by the…",["Seller on a credit sale","Buyer on payment","Bank","Auditor"],0,"Invoice lists goods, price, taxes and terms."],
+["A receipt is evidence of…",["Money received","Goods ordered","Goods returned","Profit"],0,"Receipt is proof that money was received."]]],
+["Journal",[
+["The Journal is called…",["Book of final entry","Book of original entry","Book of balances","Book of assets"],1,"Transactions are first recorded here, in date order."],
+["Goods purchased for cash ₹5,000:",["Cash A/c Dr","Purchases A/c Dr, to Cash A/c","Purchases A/c Cr","Stock A/c Cr"],1,"Purchases (expense/real) debited; cash credited."],
+["Goods withdrawn by the owner for personal use:",["Drawings A/c Dr, to Purchases A/c","Purchases A/c Dr, to Drawings","Capital A/c Dr","Sales A/c Dr"],0,"Drawings are debited; purchases credited."],
+["Bad debts are written off by…",["Debtor A/c Dr","Bad Debts A/c Dr, to Debtor A/c","Cash A/c Dr","Bad Debts A/c Cr"],1,"Bad debts is a loss (debit); the debtor is credited."]]],
+["Goods & Services Tax (GST)",[
+["GST stands for…",["General Sales Tax","Goods and Services Tax","Government Service Tax","Gross Sales Tax"],1,"A destination-based indirect tax."],
+["On an intra-state supply, GST charged is…",["IGST","CGST + SGST","Only SGST","UTGST only"],1,"Intra-state = CGST + SGST; inter-state = IGST."],
+["For an inter-state supply the tax charged is…",["IGST","CGST","SGST","Both CGST and SGST"],0,"IGST is collected by the Centre and shared."],
+["Purchase ₹10,000 with 18% GST. GST amount is…",["₹180","₹1,800","₹18,000","₹800"],1,"10,000 × 18% = ₹1,800."]]],
+["Cash Book",[
+["The cash book acts as…",["Journal only","Ledger only","Both journal and ledger","Neither"],2,"It records transactions and also works as the Cash A/c."],
+["Cash deposited into the bank is a…",["Contra entry","Compound entry","Opening entry","Adjusting entry"],0,"Both debit and credit are in the same book, marked ‘C’."],
+["The cash column can never show…",["A debit balance","A credit balance","Zero","Any balance"],1,"You can’t pay out more cash than you have."],
+["Discount allowed is recorded on the…",["Debit side","Credit side","Both sides","Not recorded"],0,"Allowed to customers = loss → debit side."]]],
+["Special Purpose Subsidiary Books",[
+["Purchases book records…",["All purchases","Credit purchases of goods for resale","Cash purchases","Purchase of furniture"],1,"Only credit purchases of goods dealt in."],
+["Sales return book records goods…",["Returned by customers","Returned to suppliers","Sold for cash","Purchased"],0,"Also called Returns Inwards Book."],
+["Credit purchase of furniture is recorded in the…",["Purchases book","Journal proper","Sales book","Cash book"],1,"Not goods for resale, so Journal Proper."],
+["The imprest system is followed in…",["Petty cash book","Sales book","Ledger","Bank book"],0,"A fixed float is reimbursed after spending."]]],
+["Ledger",[
+["The Ledger is called the…",["Book of original entry","Principal book of accounts","Day book","Rough book"],1,"It groups all transactions account-wise."],
+["Transferring entries from journal to ledger is…",["Balancing","Posting","Casting","Totalling"],1,"Posting is done through ledger folio references."],
+["Cash A/c: Dr total ₹50,000, Cr total ₹30,000. Balance is…",["₹20,000 Dr","₹20,000 Cr","₹80,000 Dr","Nil"],0,"Debit side larger → debit balance c/d."],
+["Which account normally has a debit balance?",["Creditors","Capital","Debtors","Sales"],2,"Assets and expenses show debit balances."]]],
+["Trial Balance & Errors",[
+["A trial balance is prepared to check…",["Profit","Arithmetical accuracy of books","Cash","Tax"],1,"If Dr total = Cr total, books are arithmetically accurate."],
+["Which error does NOT affect the trial balance?",["Wrong casting","Error of complete omission","Wrong posting on one side","Wrong balancing"],1,"Both aspects are missed, so totals still agree."],
+["Purchase of furniture debited to Purchases A/c is an error of…",["Principle","Commission","Casting","Compensating"],0,"Capital item treated as revenue expense."],
+["A difference in the trial balance is temporarily put in…",["Suspense A/c","Capital A/c","Drawings A/c","Cash A/c"],0,"Suspense A/c holds it until the errors are found."]]]
+];
+const EXTRA=[
+[["Which is a limitation of accounting?",["It records only transactions expressed in money","It keeps permanent records","It helps in taxation","It helps in comparison"],0,"Non-monetary facts (staff skill, goodwill of manager) are left out."],
+["Which branch of accounting gives information to management for decision making?",["Financial accounting","Management accounting","Tax accounting","Book-keeping"],1,"Management accounting is meant for internal planning and control."],
+["Which of these is a business transaction?",["Paid ₹5,000 salary to an employee","Gave a birthday gift to a friend","Bought clothes for self","Played a cricket match"],0,"Only financial events that involve the business are transactions."],
+["Accounting provides information to users to help in…",["Taking decisions","Printing notes","Avoiding laws","Closing the business"],0,"Decision making is the main purpose of accounting information."]],
+[["Purchase of machinery is…",["Revenue expenditure","Capital expenditure","Revenue receipt","Drawings"],1,"It gives benefit for many years, so it is capital expenditure."],
+["Goods costing ₹20,000 are sold for ₹26,000. The profit is…",["₹6,000","₹46,000","₹20,000","₹26,000"],0,"Profit = Sales − Cost = 26,000 − 20,000."],
+["Which is a current asset?",["Stock","Land","Machinery","Patents"],0,"Stock is converted into cash within a year."],
+["A person who supplies goods on credit to the business is a…",["Debtor","Creditor","Owner","Customer"],1,"The business owes money to the creditor."],
+["Bank overdraft is a…",["Current liability","Fixed asset","Capital","Revenue"],0,"It is a short-term loan repayable within a year."]],
+[["Under the cost concept, assets are recorded at…",["Market value","Purchase price (cost)","Expected value","Replacement value"],1,"Cost at the time of purchase is the base for recording."],
+["Dual aspect concept is the basis of…",["Double entry system","Single entry system","Cash basis","Audit"],0,"Every transaction has two aspects: debit and credit."],
+["Pencils bought for the office are fully expensed, not shown as an asset. Which concept?",["Materiality","Going concern","Consistency","Cost"],0,"Insignificant items are not worth separate treatment."],
+["Using the same method of accounting year after year follows the ___ concept.",["Consistency","Conservatism","Realisation","Entity"],0,"Consistency makes results comparable over time."]],
+[["Under the accrual basis, rent for March paid in April belongs to…",["March","April","Both","Neither"],0,"Expense is recorded in the period it is incurred."],
+["Correct order of the accounting cycle:",["Journal → Ledger → Trial Balance → Financial Statements","Ledger → Journal → Trial Balance","Trial Balance → Journal → Ledger","Journal → Trial Balance → Ledger"],0,"Record, classify, summarise, then report."],
+["The accounting period is usually…",["12 months","1 week","5 years","1 day"],0,"Normally one financial year, April to March in India."]],
+[["Ind AS are Indian standards converged with…",["IFRS","GST","SEBI Act","RBI rules"],0,"Ind AS bring Indian practice close to international standards."],
+["Accounting Standards are mandatory for companies under the…",["Companies Act, 2013","Sale of Goods Act","Income Tax rules only","FEMA"],0,"Companies must follow notified standards."],
+["Accounting standards help in making statements…",["Comparable","Secret","Longer","Tax-free"],0,"Uniform rules allow comparison between firms."]],
+[["Capital ₹1,00,000 and liabilities ₹40,000. Assets are…",["₹1,40,000","₹60,000","₹1,00,000","₹40,000"],0,"A = L + C = 40,000 + 1,00,000."],
+["Assets ₹2,50,000, capital ₹1,50,000. Liabilities are…",["₹1,00,000","₹4,00,000","₹1,50,000","₹50,000"],0,"L = A − C = 2,50,000 − 1,50,000."],
+["Started with ₹80,000 cash, bought goods on credit ₹20,000, paid rent ₹5,000. Capital now is…",["₹75,000","₹80,000","₹95,000","₹1,00,000"],0,"Capital 80,000 less rent 5,000. Credit purchase changes assets and liabilities only."],
+["Goods costing ₹10,000 sold for cash ₹12,000. Capital increases by…",["₹2,000","₹12,000","₹10,000","Nil"],0,"The profit of ₹2,000 adds to capital."],
+["Owner withdraws ₹5,000 cash for personal use. Effect is…",["Assets and capital both fall by ₹5,000","Only liabilities fall","Capital rises","No effect"],0,"Drawings reduce both cash and capital."]],
+[["Cash received from debtor Ram. Entry is…",["Cash Dr, Ram Cr","Ram Dr, Cash Cr","Cash Dr, Sales Cr","Ram Dr, Sales Cr"],0,"Cash comes in (debit); the debtor is credited."],
+["Salaries paid in cash. Entry is…",["Salaries A/c Dr, Cash A/c Cr","Cash Dr, Salaries Cr","Capital Dr, Cash Cr","Salaries Cr, Cash Dr"],0,"Expense debited; cash going out credited."],
+["Interest received is credited because it is a…",["Nominal gain","Real asset","Personal liability","Capital loss"],0,"Credit all incomes and gains."],
+["A debit balance in a personal account means the person is a…",["Debtor","Creditor","Owner","Bank"],0,"The person owes the business."]],
+[["Which document is the source for the Sales Return Book?",["Credit note","Debit note","Cash memo","Bank statement"],0,"Seller issues a credit note when goods are returned."],
+["A debit note is sent by the…",["Buyer to the seller","Seller to the buyer","Bank to owner","Owner to bank"],0,"Buyer returns goods and informs the seller by debit note."],
+["A voucher is…",["Written evidence supporting an entry","A type of ledger","A profit statement","A tax return"],0,"Vouchers prove that a transaction took place."]],
+[["Started business with cash ₹50,000. Entry is…",["Cash Dr, Capital Cr","Capital Dr, Cash Cr","Cash Dr, Sales Cr","Cash Cr, Drawings Dr"],0,"Cash comes in; capital is owed to the owner."],
+["Sold goods to Ram on credit ₹8,000. Entry is…",["Ram Dr, Sales Cr","Sales Dr, Ram Cr","Cash Dr, Sales Cr","Ram Dr, Cash Cr"],0,"Customer on credit is debited; sales credited."],
+["Paid rent ₹2,000 by cheque. Entry is…",["Rent Dr, Bank Cr","Bank Dr, Rent Cr","Rent Dr, Cash Cr","Rent Cr, Bank Dr"],0,"Expense debited; bank credited."],
+["Purchased furniture on credit from X. Entry is…",["Furniture Dr, X Cr","Purchases Dr, X Cr","X Dr, Furniture Cr","Furniture Dr, Cash Cr"],0,"Furniture is an asset, not goods for resale."],
+["Ram returned goods worth ₹1,000. Entry is…",["Sales Return Dr, Ram Cr","Ram Dr, Sales Return Cr","Purchases Return Dr, Ram Cr","Cash Dr, Ram Cr"],0,"Returns from a customer reduce sales and the debtor."],
+["Ram owes ₹5,000 and pays ₹4,800 in full settlement. Discount allowed is…",["₹200","₹4,800","₹5,000","₹9,800"],0,"5,000 − 4,800 = ₹200, debited as a loss."]],
+[["Goods ₹20,000, GST 12% (intra-state). CGST is…",["₹1,200","₹2,400","₹600","₹12,000"],0,"Each of CGST and SGST is 6%: 6% of 20,000 = 1,200."],
+["Goods ₹10,000 plus 18% GST. Invoice total is…",["₹11,800","₹10,180","₹12,800","₹10,000"],0,"10,000 + 1,800 = 11,800."],
+["Inter-state sale ₹50,000 at 5% GST. IGST is…",["₹2,500","₹250","₹5,000","₹1,250"],0,"5% of 50,000."],
+["Output CGST ₹1,500, input CGST ₹900. CGST payable is…",["₹600","₹2,400","₹900","₹1,500"],0,"Payable = Output − Input credit."],
+["Goods ₹8,000 at 18% GST, intra-state. SGST is…",["₹720","₹1,440","₹360","₹144"],0,"SGST is 9% of 8,000 = 720."]],
+[["Opening cash ₹10,000, receipts ₹25,000, payments ₹18,000. Closing cash is…",["₹17,000","₹53,000","₹7,000","₹33,000"],0,"10,000 + 25,000 − 18,000."],
+["Opening bank ₹20,000, deposited ₹5,000, cheque issued ₹8,000. Bank balance is…",["₹17,000","₹33,000","₹23,000","₹7,000"],0,"20,000 + 5,000 − 8,000."],
+["Cash withdrawn from bank for office use is a…",["Contra entry","Compound entry","Adjusting entry","Closing entry"],0,"Both aspects are in the cash book."],
+["Discount received is recorded on the…",["Credit side","Debit side","Both sides","Neither side"],0,"It is a gain, so it goes on the credit side."],
+["A credit balance in the bank column means…",["Bank overdraft","Cash in hand","Profit","Capital"],0,"The bank has paid more than was deposited."]],
+[["The Sales Book records…",["Credit sales of goods","All sales","Cash sales","Sale of old furniture"],0,"Only credit sales of goods the business deals in."],
+["The Purchases Return Book records goods…",["Returned to suppliers","Returned by customers","Bought for cash","Sold on credit"],0,"Also called Returns Outward Book."],
+["Imprest ₹5,000; petty cashier spent ₹3,200. Amount to be reimbursed is…",["₹3,200","₹5,000","₹1,800","₹8,200"],0,"Reimbursement equals the amount spent."],
+["Sale of old furniture on credit is recorded in the…",["Journal Proper","Sales Book","Purchases Book","Cash Book"],0,"Assets sold on credit go to Journal Proper."],
+["Cash sales are recorded in the…",["Cash Book","Sales Book","Journal Proper","Purchases Book"],0,"Cash transactions go directly to the cash book."]],
+[["Ram: opening balance ₹5,000 Dr, sold goods ₹3,000, received ₹2,000. Closing balance is…",["₹6,000 Dr","₹4,000 Dr","₹10,000 Dr","₹6,000 Cr"],0,"5,000 + 3,000 − 2,000 = 6,000 Dr."],
+["Bought goods ₹10,000 from Shyam and paid ₹4,000. Shyam’s account shows…",["₹6,000 Cr","₹6,000 Dr","₹14,000 Cr","₹4,000 Cr"],0,"We still owe him 10,000 − 4,000."],
+["At year end the Purchases A/c has a…",["Debit balance","Credit balance","Nil balance","Either"],0,"Purchases is an expense, so it is debit."],
+["Which account normally shows a credit balance?",["Capital","Cash","Rent","Furniture"],0,"Liabilities, capital and incomes are credit."]],
+[["TB totals: Dr ₹1,00,000, Cr ₹98,000. Suspense A/c shows…",["₹2,000 on the credit side","₹2,000 on the debit side","₹98,000 credit","Nothing"],0,"Credit total is short, so Suspense is credited."],
+["Compensating errors are errors that…",["Cancel each other’s effect","Always upset the TB","Are never corrected","Affect only cash"],0,"The TB still agrees because they offset."],
+["Goods sold to Ram posted to Rahim’s account is an error of…",["Commission","Omission","Principle","Casting"],0,"Right amount and side but wrong account."],
+["Purchase from Mohan ₹5,000 not recorded anywhere is an error of…",["Complete omission","Commission","Principle","Compensating"],0,"The TB still agrees as both aspects are missing."],
+["Furniture wrongly debited to Purchases A/c. Rectification entry is…",["Furniture Dr, to Purchases","Purchases Dr, to Furniture","Furniture Dr, to Cash","Capital Dr, to Furniture"],0,"Move the amount from Purchases to Furniture."],
+["Overcasting the Sales Book by ₹1,000 is a…",["One-sided error","Two-sided error","Error of principle","Compensating error"],0,"Only the sales side of the ledger is wrong."]]
+];
+EXTRA.forEach((q,i)=>CH[i][1].push(...q));
+const $=i=>document.getElementById(i),rnd=a=>a[Math.random()*a.length|0];
+const sh=a=>{a=a.slice();for(let i=a.length;i--;){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const st={get(k,d){try{const v=localStorage.getItem('ti_'+k);return v===null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem('ti_'+k,JSON.stringify(v))}catch(e){}}};
+const S={name:st.get('n',''),coins:st.get('c',0),best:st.get('b',{}),snd:st.get('s',true)};
+const save=()=>{st.set('n',S.name);st.set('c',S.coins);st.set('b',S.best);st.set('s',S.snd)};
+const IC=['📜','🔤','⚖️','🔄','📏','🟰','↔️','🧾','✍️','🏷️','💰','📚','📒','🔍'],COL=['--c0','--c1','--c2','--c3','--c4','--c5'];
+const TRE=['🗝️','🦜','🧭','🗺️','💎','👑','⚓','🔭','🏺','🪙','🦀','🐙','🐚','🏴‍☠️','⚔️','🍾'];
+const RANK=[[0,'Cabin Boy'],[20,'Deckhand'],[50,'Sailor'],[100,'Navigator'],[180,'Captain'],[300,'Admiral']];
+const PR=['Arrr, brilliant!','Shiver me timbers!','Yo ho ho!','Treasure found!','Smooth sailing!','Ye got it, matey!'],TY=['Blimey! Check the map 🗺️','Nearly! Read the hint 👇','Good try, matey! Look below 👇'];
+const all=CH.flatMap((c,ci)=>c[1].map(q=>({q:q[0],o:q[1],a:q[2],w:q[3],c:c[0]})));
+let G,AC;
+function beep(n){if(!S.snd)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();let t=AC.currentTime;n.forEach(([f,d])=>{const o=AC.createOscillator(),g=AC.createGain();o.type='triangle';o.frequency.value=f;g.gain.setValueAtTime(.18,t);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+d);t+=d*.8})}catch(e){}}
+const FX={r:()=>beep([[660,.12],[880,.12],[1175,.22]]),w:()=>beep([[330,.18],[262,.25]]),k:()=>beep([[520,.06]]),v:()=>beep([[523,.15],[659,.15],[784,.15],[1047,.35]])};
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));$(id).classList.add('on');scrollTo(0,0)}
+const upd=()=>$('cnum').textContent=S.coins;
+const rank=()=>[...RANK].reverse().find(r=>S.coins>=r[0])[1];
+function home(){$('hi').textContent=`Ahoy, ${S.name}! 👋`;$('rank').textContent=`Rank: ${rank()} · Pick an island ⛵`;
+ $('isl').innerHTML=CH.map((c,i)=>{const b=S.best['c'+i]||0;return `<button class="i" style="background:var(${COL[i%6]})" onclick="FX.k();go(${i})"><div class="e">${IC[i]}</div><div class="n">${i+1}. ${c[0]}</div><div class="st">${'★'.repeat(b)+'☆'.repeat(3-b)}</div></button>`}).join('');upd();show('s-home')}
+function go(i){start(all.filter(x=>x.c==CH[i][0]),CH[i][0],'c'+i)}
+function start(a,t,k){G={t,k,i:0,ok:0,tries:0,done:false,Q:sh(a).map(x=>({...x,o:sh(x.o.map((s,j)=>({s,r:j==x.a})))}))};
+ $('dots').innerHTML=G.Q.map(()=>'<i></i>').join('');ship();show('s-game');nq()}
+function ship(){$('ship').style.left=`calc(6px + ${G.i/G.Q.length} * (100% - 100px))`;[...$('dots').children].forEach((e,n)=>e.classList.toggle('d',n<G.i))}
+function nq(){const x=G.Q[G.i];G.tries=0;G.done=false;$('cht').scrollIntoView({block:'start'});$('cht').textContent=`${x.c} · ${G.i+1}/${G.Q.length}`;$('qt').textContent=x.q;
+ $('ops').innerHTML=x.o.map((o,n)=>`<button class="o" style="background:var(${COL[n]})" onclick="ans(this,${n})">${o.s}</button>`).join('');
+ $('fb').textContent='';$('fb').className='fb';$('mp').className='map';$('nx').style.display='none';$('hb').style.display=''}
+function ans(b,n){const x=G.Q[G.i];if(G.done)return;
+ if(x.o[n].r){G.done=true;b.classList.add('r');document.querySelectorAll('.o').forEach(e=>e.disabled=true);FX.r();
+  if(G.tries==0){G.ok++;S.coins++;save();upd();fly(b)}
+  $('fb').textContent=rnd(PR)+(G.tries==0?' +1 🪙':' You worked it out! 💪');$('fb').className='fb g';
+  $('mp').innerHTML=`<b>Why?</b> ${x.w}`;$('mp').className='map on';$('hb').style.display='none';G.i++;ship();conf(8);
+  $('nx').textContent=G.i>=G.Q.length?'Open the chest! 💰':'Next ➜';$('nx').style.display='inline-block'}
+ else{G.tries++;b.classList.add('w');b.disabled=true;FX.w();$('fb').textContent=rnd(TY);$('fb').className='fb t';$('hb').style.display='none';
+  $('mp').innerHTML=`<b>Hint 🗺️</b> ${x.w}<br>Now pick another answer above 👆`;$('mp').className='map on';$('qt').scrollIntoView({behavior:'smooth',block:'start'})}}
+function fin(){FX.v();conf(50,35);const p=G.ok/G.Q.length,s=p>=.9?3:p>=.6?2:1;S.best[G.k]=Math.max(S.best[G.k]||0,s);
+ const b=Math.floor((S.coins-G.ok)/10),a=Math.floor(S.coins/10);save();
+ $('re').textContent=s==3?'🏆':s==2?'💰':'⛵';$('rt').textContent=s==3?`Legendary, ${S.name}!`:s==2?`Great sailing, ${S.name}!`:'You reached the island!';
+ $('rs').textContent='⭐'.repeat(s)+'☆'.repeat(3-s);
+ let t=`${G.ok} of ${G.Q.length} right on the first try.`;if(a>b)t+=`<br>🎁 New treasure: <span style="font-size:40px">${TRE[Math.min(a-1,TRE.length-1)]}</span>`;
+ t+=s<3?'<br>Sail again for 3 stars!':'<br>Perfect run! Try the next island.';$('rx').innerHTML=t;show('s-res')}
+function fly(f){const r=f.getBoundingClientRect(),t=$('cn').getBoundingClientRect(),e=document.createElement('div');e.className='fly';e.textContent='🪙';e.style.left=r.left+r.width/2-20+'px';e.style.top=r.top+'px';e.style.setProperty('--dx',t.left-r.left-r.width/2+20+'px');e.style.setProperty('--dy',t.top-r.top+'px');document.body.appendChild(e);setTimeout(()=>e.remove(),950)}
+function conf(n,d=40){for(let i=0;i<n;i++)setTimeout(()=>{const c=document.createElement('div');c.className='cf';c.textContent=rnd(['🎉','⭐','✨','🪙','💎','🦜','⚓']);c.style.left=Math.random()*100+'vw';c.style.animationDuration=1.8+Math.random()*1.8+'s';document.body.appendChild(c);setTimeout(()=>c.remove(),3800)},i*d)}
+function tre(){const n=Math.floor(S.coins/10);$('ts').textContent=`You have ${S.coins} 🪙 · every 10 coins unlocks a treasure!`;
+ $('tg').innerHTML=TRE.map((e,i)=>i<n?`<div class="t">${e}</div>`:`<div class="t l">${e}<small>${(i+1)*10}🪙</small></div>`).join('');show('s-tre')}
+$('sd').textContent=S.snd?'🔊':'🔇';$('sd').onclick=()=>{S.snd=!S.snd;save();$('sd').textContent=S.snd?'🔊':'🔇';FX.k()};
+$('hm').onclick=()=>S.name?home():show('s-name');$('cn').onclick=()=>S.name&&tre();$('tb').onclick=()=>{FX.k();tre()};
+$('ng').onclick=()=>{const n=$('ni').value.trim();if(!n){$('ni').focus();return}S.name=n;save();FX.v();home()};
+$('mg').onclick=()=>{FX.k();start(sh(all).slice(0,20),'Mega Treasure Hunt','mega')};
+$('hb').onclick=()=>{FX.k();$('mp').innerHTML=`<b>Hint 🗺️</b> ${G.Q[G.i].w}`;$('mp').className='map on';$('hb').style.display='none'};
+$('nx').onclick=()=>{FX.k();G.i>=G.Q.length?fin():nq()};
+$('ag').onclick=()=>{const k=G.k;k=='mega'?start(sh(all).slice(0,20),G.t,k):go(+k.slice(1))};$('rh').onclick=home;
+S.name?home():show('s-name');
+</script></body></html>
